@@ -1,6 +1,6 @@
 streamlit
-st_lottie
+streamlit-lottie
 PyPDF2
-io
 openai
-docx2txtpyperclip
+docx2txt
+pyperclip
