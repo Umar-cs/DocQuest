@@ -166,9 +166,10 @@ def main():
                 st.write("Answer: " + answer)
 
                 # Creating a button to copy the answer text to clipboard
-                if st.button("Copy Answer Text"):
-                    pyperclip.copy(answer)
-                    st.success("Answer text copied to clipboard!")
+                # commenting because not working on live web app due to cloud restictions
+               # if st.button("Copy Answer Text"):
+                #    pyperclip.copy(answer)
+                 #   st.success("Answer text copied to clipboard!")
 
 
 # calling Main fun
