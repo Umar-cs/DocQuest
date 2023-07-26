@@ -138,40 +138,40 @@ def main():
     
     # Creating a file uploader for PDF, Word, and Text files
     uploaded_file = st.file_uploader("Choose a file", type=["pdf", "docx", "txt"])
+   
+    try:
+        # Checking if a file has been uploaded
+        if uploaded_file is not None:
+            # Extracting text from the uploaded file
+            txt = extract_text_from_file(uploaded_file)
 
-    # Checking if a file has been uploaded
-    if uploaded_file is not None:
-        # Extracting text from the uploaded file
-        txt = extract_text_from_file(uploaded_file)
+            # Checking if text was extracted successfully
+            if txt is not None:
+                # Generating a question from the extracted text using GPT-3
+                # question = gen_question(txt)
 
-        # Checking if text was extracted successfully
-        if txt is not None:
-            # Generating a question from the extracted text using GPT-3
-            
-           # question = gen_question(txt)
+                # Displaying the generated question
+                # st.write("Question: " + question )
 
-            # Displaying the generated question
-            
-            #st.write("Question: " + question )
+                # Creating a text input for the user to ask a question
+                user_question = st.text_input("Ask a question about the document")
 
-            # Creating a text input for the user to ask a question
-            user_question = st.text_input("Ask a question about the document")
+                # Checking if the user has asked a question
+                if user_question:
+                    # Generating an answer to the user's question using GPT-3
+                    answer = gen_response(txt, user_question)
 
-            # Checking if the user has asked a question
-            if user_question:
-                # Generating an answer to the user's question using GPT-3
-                answer = gen_response(txt, user_question)
+                    # Displaying the generated answer
+                    st.write("Answer: " + answer)
 
-                # Displaying the generated answer
-                st.write("Answer: " + answer)
-
-                # Creating a button to copy the answer text to clipboard
-                # commenting because not working on live web app due to cloud restictions
-               # if st.button("Copy Answer Text"):
-                #    pyperclip.copy(answer)
-                 #   st.success("Answer text copied to clipboard!")
-
-
+                    # Creating a button to copy the answer text to clipboard
+                    # commenting because not working on live web app due to cloud restrictions
+                    # if st.button("Copy Answer Text"):
+                    #     pyperclip.copy(answer)
+                    #     st.success("Answer text copied to clipboard!")
+    except openai.error.AuthenticationError:
+        # Handling the AuthenticationError
+        st.error("Authentication Error: Please provide a valid OpenAi API key in the sidebar.")
 # calling Main fun
 if __name__ == "__main__":
     main()
